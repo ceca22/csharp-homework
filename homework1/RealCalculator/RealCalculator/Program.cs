@@ -1,14 +1,17 @@
 ﻿using System;
 
-namespace homework1
+namespace RealCalculator
 {
     class Program
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("RealCalculator Project");
+            Console.WriteLine("Enter a number!");
             bool first = int.TryParse(Console.ReadLine(), out int firstInput);
+            Console.WriteLine("Enter a number!");
             bool second = int.TryParse(Console.ReadLine(), out int secondInput);
+            Console.WriteLine("Choose an operation: +, -, /, * ");
             string operation = Console.ReadLine();
             int result;
 
@@ -16,7 +19,8 @@ namespace homework1
             Console.WriteLine("The first input is:" + secondInput);
             Console.WriteLine("The operation is:" + operation);
 
-            if(first && second) {
+            if (first && second)
+            {
                 switch (operation)
                 {
                     case "+":
@@ -39,7 +43,7 @@ namespace homework1
                         Console.WriteLine("Invalid operation entry!");
                         break;
 
-                } 
+                }
             }
             else
             {
@@ -79,10 +83,6 @@ namespace homework1
                 Console.WriteLine("Invalid input!");
 
             }
-
-
-
-           
 
         }
     }

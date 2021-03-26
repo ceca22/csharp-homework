@@ -6,11 +6,14 @@ namespace SwapNumbers
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Swap Numbers");
+            Console.WriteLine("Choose a number:");
             bool first = int.TryParse(Console.ReadLine(), out int firstInput);
+            Console.WriteLine("Choose a number:");
             bool second = int.TryParse(Console.ReadLine(), out int secondInput);
 
 
-            if(first && second)
+            if (first && second)
             {
                 Console.WriteLine("The first Input is: " + firstInput);
                 Console.WriteLine("The second Input is: " + secondInput);
@@ -20,11 +23,11 @@ namespace SwapNumbers
 
                 Console.WriteLine("The first Input is: " + firstInput);
                 Console.WriteLine("The second Input is: " + secondInput);
-            } else
+            }
+            else
             {
                 Console.WriteLine("Invalid entry!");
             }
-
 
         }
     }
