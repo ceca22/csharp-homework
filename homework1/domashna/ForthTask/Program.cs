@@ -26,6 +26,10 @@ namespace ForthTask
             {
                 Console.WriteLine("Bad number");
             }
+
+
+
+            string name = Console.ReadLine();
         }
     }
 }
