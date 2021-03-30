@@ -9,8 +9,10 @@ namespace SumOfEven
             
             int[] arrayOne = new int[6];
             int sumOfEven = 0;
+            Console.WriteLine("5 inputs to check the average!");
 
-            for(int i = 0; i < arrayOne.Length; i++)
+
+            for (int i = 0; i < arrayOne.Length; i++)
             {
                 Console.WriteLine("Enter a number:");
                 bool input = int.TryParse(Console.ReadLine(), out arrayOne[i]);

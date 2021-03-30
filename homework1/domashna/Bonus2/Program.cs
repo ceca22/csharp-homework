@@ -43,7 +43,11 @@ namespace Bonus2
             }
             else if (pointsOnExam <= 70)
             {
-                if (pointsOnExam > 63 && pointsOnExam < 68)
+                if (pointsOnExam > 60 && pointsOnExam < 64)
+                {
+                    Console.WriteLine("You got a grade:7-!");
+                }
+                else if (pointsOnExam > 63 && pointsOnExam < 68)
 
                 {
                     Console.WriteLine("You got a grade:7!");

@@ -16,7 +16,7 @@ namespace Class03
             //DALI ima nekoj nacin na deklariranje niza bez da odredime kolku elementi se ocekuvaat?
             //jas probav kako broj da ja stavam varijablata counter, no mi najavi greshka deka mora da vnesam fiksna brojka
             //a vo ovoj slucaj ne mozam da znam kolku iminja ke vnesuva user-ot
-            string[] nameArray = new string[30];
+            string[] nameArray = new string[20];
 
             nameArray[0] = nameOne;
 
