@@ -16,7 +16,7 @@ namespace Class03
             //DALI ima nekoj nacin na deklariranje niza bez da odredime kolku elementi se ocekuvaat?
             //jas probav kako broj da ja stavam varijablata counter, no mi najavi greshka deka mora da vnesam fiksna brojka
             //a vo ovoj slucaj ne mozam da znam kolku iminja ke vnesuva user-ot
-            string[] nameArray = new string[20];
+            string[] nameArray = new string[1];
 
             nameArray[0] = nameOne;
 
@@ -28,9 +28,11 @@ namespace Class03
 
                 if (answer == "Y")
                 {
+                    Array.Resize(ref nameArray, nameArray.Length +1);
                     Console.WriteLine("Enter " + counter + " name: ");
                     nameArray[counter] = Console.ReadLine();
                     counter++;
+                    
 
                 }
 
