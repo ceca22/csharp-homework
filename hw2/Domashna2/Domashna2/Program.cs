@@ -12,10 +12,6 @@ namespace Class03
             string nameOne = Console.ReadLine();
             int counter = 1;
 
-
-            //DALI ima nekoj nacin na deklariranje niza bez da odredime kolku elementi se ocekuvaat?
-            //jas probav kako broj da ja stavam varijablata counter, no mi najavi greshka deka mora da vnesam fiksna brojka
-            //a vo ovoj slucaj ne mozam da znam kolku iminja ke vnesuva user-ot
             string[] nameArray = new string[1];
 
             nameArray[0] = nameOne;
