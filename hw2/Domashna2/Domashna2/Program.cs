@@ -20,10 +20,10 @@ namespace Class03
             for (; ; )
             {
                 Console.WriteLine("Would you like to enter another name? Answer with Y or N");
-                string answer = Console.ReadLine();
+                string answer = Console.ReadLine().ToUpper();
 
 
-                if (answer == "Y" || answer == "y")
+                if (answer == "Y" )
                 {
                     Array.Resize(ref nameArray, nameArray.Length +1);
                     Console.WriteLine("Enter " + nameCount + " name: ");
@@ -31,7 +31,7 @@ namespace Class03
                     counter++;
                     
 
-                } else if (answer == "N" || answer == "n")
+                } else if (answer == "N" )
                 {
                     Console.WriteLine("You entered N and I'm writing down all the names");
                     for (int i = 0; i < nameArray.Length; i++)
@@ -44,7 +44,7 @@ namespace Class03
                     Console.WriteLine("No such command");
                 };
 
-                //ima li opcija input-ot da bide so golema bukva bezrazlika dali sme vnele input so mali ili golemi bukvi 
+                
 
 
 
