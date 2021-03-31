@@ -8,10 +8,10 @@ namespace Bonus1
         {
 
             Console.WriteLine("Enter a number of points from 0 to 100");
-            bool points = int.TryParse(Console.ReadLine(), out int pointsOnExam);
+            //bool points = int.TryParse(Console.ReadLine(), out int pointsOnExam);
 
             //Me interesira zoshto ne printa nikakva poraka koga vnesuvam broevi so decimali
-            //bool points = float.TryParse(Console.ReadLine(), out float pointsOnExam);
+            bool points = float.TryParse(Console.ReadLine(), out float pointsOnExam);
 
             if(pointsOnExam <= 50)
             {
