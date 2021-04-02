@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "class04", "class04\class04.csproj", "{E0E5165E-685F-4C25-B636-98DF66FE9564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vezba2", "vezba2\vezba2.csproj", "{364BFB8B-3BB0-471E-88AB-546A165B1856}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0E5165E-685F-4C25-B636-98DF66FE9564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E5165E-685F-4C25-B636-98DF66FE9564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E5165E-685F-4C25-B636-98DF66FE9564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E5165E-685F-4C25-B636-98DF66FE9564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364BFB8B-3BB0-471E-88AB-546A165B1856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364BFB8B-3BB0-471E-88AB-546A165B1856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364BFB8B-3BB0-471E-88AB-546A165B1856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364BFB8B-3BB0-471E-88AB-546A165B1856}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B64BF6E-F86E-4CDC-8707-E124825BB30E}
+	EndGlobalSection
+EndGlobal
