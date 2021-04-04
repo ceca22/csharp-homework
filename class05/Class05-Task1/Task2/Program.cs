@@ -223,7 +223,7 @@ namespace Task2
                         //naredno ako vnesam -1
                         //mi printa deka sum ja izbrala ferari kolata
                         //neli treba da vleze vo default zatoa shto e negativen broj i plus zatoa shto ne postoi takov case -1;
-                        //defaulth case ne mi raboti kako shto treba samo kaj switch-ot za vtorata kola i switch-ot za vtoriot vozac, se druzi si raboti
+                        //defaulth case ne mi raboti kako shto treba samo kaj switch-ot za vtorata kola i switch-ot za vtoriot vozac, se drugo si raboti
 
                         break;
 
