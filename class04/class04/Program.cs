@@ -72,7 +72,7 @@ namespace class04
 
             
             int newCountForLargest = 0;
-            string largestWord = "random";
+            string largestWord = null;
 
 
             foreach (string count in countWords)
@@ -95,10 +95,7 @@ namespace class04
             
             int newCountForSmallest = newCountForLargest;
 
-            //zoshto ne mozam da deklariram string bez vrednost na ovoj nacin -> string smallestWord; 
-            //koga go deklariram na ovoj nacin bez vrednost podole kade shto go konzologiram mi pokazuva greshka
-            //ne moze da pocne kodot bez inicijalna vrednost
-            //isto i za largestWord
+            
 
             string smallestWord = null;
 
@@ -133,7 +130,7 @@ namespace class04
             Console.WriteLine("----------------------------4.Print the most used charachter------------------------------------");
 
             
-            //isto i ovde ne mozam da deklariram prazen char mostUsed
+           
 
             int countFour = 0;
             char mostUsed = '\x0000';
