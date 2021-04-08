@@ -99,8 +99,8 @@ namespace class04
             //koga go deklariram na ovoj nacin bez vrednost podole kade shto go konzologiram mi pokazuva greshka
             //ne moze da pocne kodot bez inicijalna vrednost
             //isto i za largestWord
-            
-            string smallestWord = "none";
+
+            string smallestWord = null;
 
             //ne gi svrzav ovie dva foreach lopovi zatoa shto mi treba da zavrshi prviot foreach i da se zacuva
             //dolzinata na najdolgiot zbor pa spored negovata dolzina se ispolnuva najprviot uslovot vo if na
@@ -136,8 +136,9 @@ namespace class04
             //isto i ovde ne mozam da deklariram prazen char mostUsed
 
             int countFour = 0;
-            char mostUsed = 'x';
-            
+            char mostUsed = '\x0000';
+
+
 
             foreach (char input in reverseInputTwo)
             {
