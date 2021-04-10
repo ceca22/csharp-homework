@@ -13,7 +13,7 @@ namespace MovieStore
         {
             foreach (User user in users)
             {
-                if (user.UserName.ToLower() == username.ToLower() && user.Password == password) return user;
+                if (user.UserName.ToLower() == username.ToLower() && user.Password == password && user.Removed != true) return user;
             }
             return null;
         }
@@ -22,43 +22,104 @@ namespace MovieStore
         {
             foreach (Employee employee in employees)
             {
-                if (employee.UserName.ToLower() == username.ToLower() && employee.Password == password)
+                if (employee.UserName.ToLower() == username.ToLower() && employee.Password == password )
                 {
-                    Console.WriteLine($"You have succesfully logged in {employee.FirstName} {employee.LastName}");
+                    
                     return employee;
                 }
                     
             }
-            
+            return null;
         }
-        static void LogAppUser()
+        static User LogAppUser(User[] users, string username, string password, Movie[] movies)
         {
+            User currentlyLoggedInUser = FindUser(users, username, password);
+            if (currentlyLoggedInUser != null)
+                Console.WriteLine($"You have succesfully logged in {currentlyLoggedInUser.FirstName} {currentlyLoggedInUser.LastName}");
+            else return null;
+            Console.WriteLine("---------------------------------------------");
+            currentlyLoggedInUser.Displayinfo();
+            Console.WriteLine(currentlyLoggedInUser.Subscription);
+            Console.WriteLine("-------------------Rented Movies------------");
+            if(currentlyLoggedInUser.Movies.Length < 0)
+            {
+                Console.WriteLine("No movies rented at the moment");
+            }
+            else
+            {
+                for(int i=0; i< currentlyLoggedInUser.Movies.Length; i++)
+                {
+                    Console.WriteLine(currentlyLoggedInUser.Movies[i]);
+                }
+            }
+            
+            return currentlyLoggedInUser;
+
 
         }
 
-        static void LogAppEmployee( User[] users, Movie[] movies)
+        static string RentMoviesForUser( Movie[] movies)
         {
-            
+            Console.WriteLine("");
+            Console.WriteLine("-----------Which movie would you like to rent?-----");
+            foreach (Movie movie in movies)
+            {
+                if (movie.Rented != true)
+                {
+                    Console.WriteLine($"Title: {movie.Title} | Year: {movie.Year} | {movie.Genre} ");
+                    Console.WriteLine("");
+                }
+
+            }
+            Console.WriteLine("Enter the movie Title");
+            string rentMovie = Console.ReadLine();
+            string movieRented = null;
+            foreach (Movie movie in movies)
+            {
+                if (rentMovie == movie.Title)
+                {
+                    movie.Rented = true;
+                    movieRented = movie.Title;
+                }
+
+
+            }
+            return movieRented;
+        }
+
+        static void LogAppEmployee(Employee[] employees, string username, string password, User[] users, Movie[] movies)
+        {
+            Employee currentlyLoggedIn = FindEmployee(employees, username, password);
+            if (currentlyLoggedIn != null)
+                Console.WriteLine($"You have succesfully logged in {currentlyLoggedIn.FirstName} {currentlyLoggedIn.LastName}");
+            else return;
+
             Console.WriteLine("----------Registered users-----------");
             for (int i = 0; i < users.Length; i++)
             {
-                users[i].Displayinfo();
+                if (users[i].Removed != true)
+                    users[i].Displayinfo();
+                else continue;
             }
+            Console.WriteLine("----------Registered employees-----------");
+            for (int i = 0; i < employees.Length; i++)
+            {
+                employees[i].Displayinfo();
+            }
+
             Console.WriteLine("----------Movies available for rent-----------");
             for (int i = 0; i < movies.Length; i++)
             {
                 if (movies[i].Rented == false)
                 {
                     Console.WriteLine(movies[i].Title);
+                } else if(movies[i].Rented == true)
+                {
+                    Console.WriteLine($"{movies[i].Title} is rented");
                 }
             }
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine("Would you like to add new users or delete any?");
-            string addOrDelete = Console.ReadLine().ToLower();
-            if(addOrDelete == "add")
-            {
-                RegAppUser(users);
-            }
+            
+            
         }
 
 
@@ -100,9 +161,8 @@ namespace MovieStore
             //and therefor no bonus
             int hours = 0;
             MovieStoreRole role = MovieStoreRole.Employee;
-            Array.Resize(ref employees, employees.Length + 1);
-            Employee newEmployee = employees[employees.Length - 1];
-            newEmployee = new Employee(first, last, age, username, pass, phone, dateReg, role, hours);
+            
+            Employee newEmployee = new Employee(first, last, age, username, pass, phone, dateReg, role, hours);
 
 
             Console.WriteLine("---------------------------------------");
@@ -178,12 +238,41 @@ namespace MovieStore
             }
 
 
-            Array.Resize(ref users, users.Length + 1);
-            User newUser = users[users.Length - 1];
-            newUser = new User(first, last, age, username, pass, phone, dateReg, MovieStoreRole.User, memberId, method, new string[] { } );
+            
+            User newUser = new User(first, last, age, username, pass, phone, dateReg, MovieStoreRole.User, memberId, method, new string[] { } );
             return newUser;
         }
 
+        static void RemoveUsers(User[] users)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------");
+            foreach (User user in users)
+            {
+                if (user.Removed != true)
+                    user.Details();
+                else continue;
+            }
+            Console.WriteLine("-------------------------------");
+
+            Console.WriteLine("Who would you like to remove? Enter yes or no to start or stop removing");
+            string toRemove = null;
+            
+            while(toRemove == "yes")
+            {
+                Console.WriteLine("Enter the member ID!");
+                int removeUser = int.Parse(Console.ReadLine());
+                
+                foreach (User user in users)
+                {
+                    if (removeUser == user.MemberId)
+                        user.Removed = true;
+                    else continue;
+
+                }
+            }
+            
+        }
 
 
 
@@ -198,17 +287,17 @@ namespace MovieStore
 
             User[] arrayOfUsers = new User[]
             {
-                new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "horror", "animated", "romance" })
+                new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "Forrest Gump" })
             };
 
 
             Employee emloyee01 = new Employee("Anita", "Anoska", 26, "ani555", "loveanita5", 075321321, new DateTime(2019,01,22), MovieStoreRole.Employee, 173);
-            User user01 = new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "horror", "animated", "romance" });
+            User user01 = new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "Forrest Gump" });
 
 
             Movie[] arrayOfMovies = new Movie[]
             {
-                new Movie("Forrest Gump", "Based on the 1986 novel of the same name by Winston Groom, however the film differs substantially from the novel.", 1994, MovieGenres.Drama, false),
+                new Movie("Forrest Gump", "Based on the 1986 novel of the same name by Winston Groom, however the film differs substantially from the novel.", 1994, MovieGenres.Drama, true),
                 new Movie("The Shawshank Redemption", "The title refers to Andy's escape, as well as a shout out to one of the ways he makes life bearable in prison.", 1994, MovieGenres.Drama, false),
                 new Movie("American Psycho", "Based on American Psycho by Bret Easton Ellis", 2000, MovieGenres.Thrillers, false),
                 new Movie("Catch Me If You Can", "The film is based on the life of Frank Abagnale, who, before his 19th birthday, successfully performed cons worth millions of dollars by posing as a Pan American World Airways pilot, a Georgia doctor and a Louisiana parish prosecutor.", 2002, MovieGenres.Comedy, false),
@@ -236,18 +325,33 @@ namespace MovieStore
 
                  if (answer == "register")
                  {
-                    RegAppEmployee(arrayOfEmployees);
+                    Employee newReg = RegAppEmployee(arrayOfEmployees);
+                    Array.Resize(ref arrayOfEmployees, arrayOfEmployees.Length + 1);
+                    arrayOfEmployees[arrayOfEmployees.Length - 1] = newReg;
 
-                 }
+                }
                 else if (answer == "login" || answer == "log in")
                 {
                     Console.WriteLine("Are you a user or an employee?");
                     string memberKind = Console.ReadLine().ToLower();
                     if (memberKind == "user")
                     {
+                        Console.WriteLine("------------Let's Log you into your account!------------");
+                        Console.Write("Username: ");
+                        string logUserName = Console.ReadLine().ToLower();
 
+                        Console.Write("Password: ");
+                        string logPassword = Console.ReadLine();
+                        User currentuser = null;
+                        currentuser = LogAppUser(arrayOfUsers, logUserName, logPassword, arrayOfMovies);
+                        string currentRentedMovie = RentMoviesForUser(arrayOfMovies);
+                        Array.Resize(ref currentuser.Movies, currentuser.Movies.Length + 1); 
+                        currentuser.Movies[currentuser.Movies.Length + 1] = currentRentedMovie;
 
-                    }else if(memberKind == "employee")
+ 
+
+                    }
+                    else if(memberKind == "employee")
                     {
                         Console.WriteLine("------------Let's Log you into your account!------------");
                         Console.Write("Username: ");
@@ -256,9 +360,24 @@ namespace MovieStore
                         Console.Write("Password: ");
                         string logPassword = Console.ReadLine();
                         Console.Clear();
-                        FindEmployee(arrayOfEmployees, logUserName, logPassword);
                         
-                        LogAppEmployee( arrayOfUsers, arrayOfMovies);
+                        
+                        LogAppEmployee(arrayOfEmployees, logUserName, logPassword, arrayOfUsers, arrayOfMovies);
+
+                        Console.WriteLine("----------------------------------------");
+                        Console.WriteLine("Would you like to add new users or delete any?");
+                        string addOrDelete = Console.ReadLine().ToLower();
+                        if (addOrDelete == "add")
+                        {
+                            User newUserReg = RegAppUser(arrayOfUsers);
+                            Array.Resize(ref arrayOfUsers, arrayOfUsers.Length + 1);
+                            arrayOfUsers[arrayOfUsers.Length - 1] = newUserReg;
+                        } else if(addOrDelete == "delete")
+                        {
+                            RemoveUsers(arrayOfUsers);
+                            
+
+                        }
                         
 
 
