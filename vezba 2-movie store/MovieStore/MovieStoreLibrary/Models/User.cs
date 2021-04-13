@@ -14,7 +14,7 @@ namespace MovieStoreLibrary.Models
     {
         public int MemberId { get; set; }
         public TypeOfSubscription Subscription { get; set; }
-        public string[] Movies { get; set; }
+        public Movie[] Movies { get; set; }
 
         public bool Removed { get; set; }
 
@@ -23,7 +23,7 @@ namespace MovieStoreLibrary.Models
 
         }
 
-        public User(string firstName, string lastName, int age, string userName, string pasword, int phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int memberId, TypeOfSubscription subscription, string[] movies)
+        public User(string firstName, string lastName, int age, string userName, string pasword, int phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int memberId, TypeOfSubscription subscription, Movie[] movies)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -45,9 +45,9 @@ namespace MovieStoreLibrary.Models
             for (int i = 0; i < Movies.Length; i++)
             {
                 if (Movies.Length > 1)
-                    user += $"{Movies[i]}, ";
+                    user += $"{Movies[i].Title}, ";
                 else if (Movies.Length == 1)
-                    user += Movies[i];
+                    user += Movies[i].Title;
                 else
                     user = "Hasn't rented yet";
             }

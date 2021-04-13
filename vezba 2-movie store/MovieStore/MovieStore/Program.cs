@@ -9,6 +9,8 @@ namespace MovieStore
 
     class Program
     {
+
+        #region FIND USER
         static User FindUser(User[] users, string username, string password)
         {
             foreach (User user in users)
@@ -17,7 +19,9 @@ namespace MovieStore
             }
             return null;
         }
+        #endregion
 
+        #region FIND EMPLOYEEE
         static Employee FindEmployee(Employee[] employees, string username, string password)
         {
             foreach (Employee employee in employees)
@@ -31,6 +35,11 @@ namespace MovieStore
             }
             return null;
         }
+
+#endregion
+
+        #region LOGIN USERS
+
         static User LogAppUser(User[] users, string username, string password, Movie[] movies)
         {
             User currentlyLoggedInUser = FindUser(users, username, password);
@@ -58,7 +67,11 @@ namespace MovieStore
 
         }
 
-        static string RentMoviesForUser( Movie[] movies)
+#endregion
+
+        #region RENT MOVIES FOR USERS
+
+        static Movie RentMoviesForUser( Movie[] movies)
         {
             Console.WriteLine("");
             Console.WriteLine("-----------Which movie would you like to rent?-----");
@@ -73,20 +86,24 @@ namespace MovieStore
             }
             Console.WriteLine("Enter the movie Title");
             string rentMovie = Console.ReadLine();
-            string movieRented = null;
+            Movie movieRented = null;
             foreach (Movie movie in movies)
             {
                 if (rentMovie == movie.Title)
                 {
                     movie.Rented = true;
-                    movieRented = movie.Title;
+                    movieRented = movie;
                 }
 
 
             }
+
+            
             return movieRented;
         }
+#endregion
 
+        #region LOGIN EMPLOYEES
         static void LogAppEmployee(Employee[] employees, string username, string password, User[] users, Movie[] movies)
         {
             Employee currentlyLoggedIn = FindEmployee(employees, username, password);
@@ -122,6 +139,9 @@ namespace MovieStore
             
         }
 
+#endregion
+
+        #region REGISTER employess
 
 
         static Employee RegAppEmployee(Employee[] employees)
@@ -178,7 +198,10 @@ namespace MovieStore
 
             return newEmployee;
         }
+#endregion
 
+
+        #region REGISTER USERS
         static User RegAppUser(User[] users)
         {
             Console.Write("Enter first name: ");
@@ -237,12 +260,14 @@ namespace MovieStore
                 }
             }
 
+            #endregion
 
-            
-            User newUser = new User(first, last, age, username, pass, phone, dateReg, MovieStoreRole.User, memberId, method, new string[] { } );
+            User newUser = new User(first, last, age, username, pass, phone, dateReg, MovieStoreRole.User, memberId, method, new Movie[] { } );
             return newUser;
         }
 
+
+        #region Remove USERS
         static void RemoveUsers(User[] users)
         {
             Console.Clear();
@@ -255,10 +280,10 @@ namespace MovieStore
             }
             Console.WriteLine("-------------------------------");
 
-            Console.WriteLine("Who would you like to remove? Enter yes or no to start or stop removing");
             string toRemove = null;
-            
-            while(toRemove == "yes")
+            Console.WriteLine("Who would you like to remove? Enter yes or no to start or stop removing");
+            toRemove = Console.ReadLine();
+            while (toRemove == "yes")
             {
                 Console.WriteLine("Enter the member ID!");
                 int removeUser = int.Parse(Console.ReadLine());
@@ -270,15 +295,27 @@ namespace MovieStore
                     else continue;
 
                 }
+                Console.WriteLine("Who would you like to remove? Enter yes or no to start or stop removing");
+                toRemove = Console.ReadLine();
             }
             
         }
 
 
 
+        #endregion
 
         static void Main(string[] args)
         {
+            Movie[] arrayOfMovies = new Movie[]
+           {
+                new Movie("Forrest Gump", "Based on the 1986 novel of the same name by Winston Groom, however the film differs substantially from the novel.", 1994, MovieGenres.Drama, true),
+                new Movie("The Shawshank Redemption", "The title refers to Andy's escape, as well as a shout out to one of the ways he makes life bearable in prison.", 1994, MovieGenres.Drama, false),
+                new Movie("American Psycho", "Based on American Psycho by Bret Easton Ellis", 2000, MovieGenres.Thrillers, false),
+                new Movie("Catch Me If You Can", "The film is based on the life of Frank Abagnale, who, before his 19th birthday, successfully performed cons worth millions of dollars by posing as a Pan American World Airways pilot, a Georgia doctor and a Louisiana parish prosecutor.", 2002, MovieGenres.Comedy, false),
+                new Movie("Transformers", "The Transformers toyline and animated series were inspired by the Japanese toyline, Microman (an Eastern descendant of the 12-inch G.I. Joe action figure series) by Takara", 2007, MovieGenres.Action, false),
+                new Movie("Inside Out", "One of the main lessons of 'Inside Out' is about how contradictory emotions can work in concert. The movie centers on an 11-year-old girl named Riley, whose life goes through big changes when her family moves from Minnesota to San Francisco.", 2015, MovieGenres.Animated, false )
+           };
 
             Employee[] arrayOfEmployees = new Employee[]
             {
@@ -287,23 +324,16 @@ namespace MovieStore
 
             User[] arrayOfUsers = new User[]
             {
-                new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "Forrest Gump" })
+                new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new Movie[] {arrayOfMovies[0] })
             };
 
 
             Employee emloyee01 = new Employee("Anita", "Anoska", 26, "ani555", "loveanita5", 075321321, new DateTime(2019,01,22), MovieStoreRole.Employee, 173);
-            User user01 = new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new string[] { "Forrest Gump" });
+            User user01 = new User("Boni", "Bonita", 33, "bonii_2", "loveboni", 077456654, new DateTime(2020, 05, 15), MovieStoreRole.User, 6543, TypeOfSubscription.Monthly, new Movie[] { arrayOfMovies[0] });
 
 
-            Movie[] arrayOfMovies = new Movie[]
-            {
-                new Movie("Forrest Gump", "Based on the 1986 novel of the same name by Winston Groom, however the film differs substantially from the novel.", 1994, MovieGenres.Drama, true),
-                new Movie("The Shawshank Redemption", "The title refers to Andy's escape, as well as a shout out to one of the ways he makes life bearable in prison.", 1994, MovieGenres.Drama, false),
-                new Movie("American Psycho", "Based on American Psycho by Bret Easton Ellis", 2000, MovieGenres.Thrillers, false),
-                new Movie("Catch Me If You Can", "The film is based on the life of Frank Abagnale, who, before his 19th birthday, successfully performed cons worth millions of dollars by posing as a Pan American World Airways pilot, a Georgia doctor and a Louisiana parish prosecutor.", 2002, MovieGenres.Comedy, false),
-                new Movie("Transformers", "The Transformers toyline and animated series were inspired by the Japanese toyline, Microman (an Eastern descendant of the 12-inch G.I. Joe action figure series) by Takara", 2007, MovieGenres.Action, false),
-                new Movie("Inside Out", "One of the main lessons of 'Inside Out' is about how contradictory emotions can work in concert. The movie centers on an 11-year-old girl named Riley, whose life goes through big changes when her family moves from Minnesota to San Francisco.", 2015, MovieGenres.Animated, false )
-            };
+           
+            
 
             //emloyee01.Displayinfo();
             //Console.WriteLine($"{emloyee01.FirstName} {emloyee01.LastName} of age {emloyee01.Age} is an {MovieStoreRole.Employee} in our MovieStore");
@@ -334,6 +364,7 @@ namespace MovieStore
                 {
                     Console.WriteLine("Are you a user or an employee?");
                     string memberKind = Console.ReadLine().ToLower();
+
                     if (memberKind == "user")
                     {
                         Console.WriteLine("------------Let's Log you into your account!------------");
@@ -342,13 +373,23 @@ namespace MovieStore
 
                         Console.Write("Password: ");
                         string logPassword = Console.ReadLine();
-                        User currentuser = null;
-                        currentuser = LogAppUser(arrayOfUsers, logUserName, logPassword, arrayOfMovies);
-                        string currentRentedMovie = RentMoviesForUser(arrayOfMovies);
-                        Array.Resize(ref currentuser.Movies, currentuser.Movies.Length + 1); 
-                        currentuser.Movies[currentuser.Movies.Length + 1] = currentRentedMovie;
+                        
+                        User currentuser = LogAppUser(arrayOfUsers, logUserName, logPassword, arrayOfMovies);
 
- 
+                        User currentlyLoggedInUser = FindUser(arrayOfUsers, logUserName, logPassword);
+                        if (currentlyLoggedInUser != null)
+                        {
+
+
+                            Movie currentRentedMovie = RentMoviesForUser(arrayOfMovies);
+                            //Array.Resize(ref currentuser.Movies, currentuser.Movies.Length + 1); 
+                            //currentuser.Movies[currentuser.Movies.Length - 1] = currentRentedMovie;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("No such user!");
+                        }
 
                     }
                     else if(memberKind == "employee")
@@ -363,21 +404,41 @@ namespace MovieStore
                         
                         
                         LogAppEmployee(arrayOfEmployees, logUserName, logPassword, arrayOfUsers, arrayOfMovies);
-
-                        Console.WriteLine("----------------------------------------");
-                        Console.WriteLine("Would you like to add new users or delete any?");
-                        string addOrDelete = Console.ReadLine().ToLower();
-                        if (addOrDelete == "add")
+                        Employee currentlyLoggedIn = FindEmployee(arrayOfEmployees, logUserName, logPassword);
+                        if (currentlyLoggedIn != null)
                         {
-                            User newUserReg = RegAppUser(arrayOfUsers);
-                            Array.Resize(ref arrayOfUsers, arrayOfUsers.Length + 1);
-                            arrayOfUsers[arrayOfUsers.Length - 1] = newUserReg;
-                        } else if(addOrDelete == "delete")
-                        {
-                            RemoveUsers(arrayOfUsers);
-                            
+                            //Console.WriteLine($"You have succesfully logged in {currentlyLoggedIn.FirstName} {currentlyLoggedIn.LastName}");
 
+                            Console.WriteLine("----------------------------------------");
+                            Console.WriteLine("Would you like to add new users or delete any?");
+                            string addOrDelete = Console.ReadLine().ToLower();
+
+                            while (addOrDelete != "h")
+                            {
+                                Console.WriteLine("Would you like to add new users or delete any? Enter 'h' to go back to HOME page");
+                                addOrDelete = Console.ReadLine().ToLower();
+                                if (addOrDelete == "add")
+                                {
+                                    User newUserReg = RegAppUser(arrayOfUsers);
+                                    Array.Resize(ref arrayOfUsers, arrayOfUsers.Length + 1);
+                                    arrayOfUsers[arrayOfUsers.Length - 1] = newUserReg;
+                                }
+                                else if (addOrDelete == "delete")
+                                {
+                                    RemoveUsers(arrayOfUsers);
+
+
+                                }
+
+                            }
                         }
+                            
+                        else
+                        {
+                            Console.WriteLine("No such user");
+                        }
+
+
                         
 
 
