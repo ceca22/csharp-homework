@@ -50,15 +50,15 @@ namespace MovieStore
             currentlyLoggedInUser.Displayinfo();
             Console.WriteLine(currentlyLoggedInUser.Subscription);
             Console.WriteLine("-------------------Rented Movies------------");
-            if(currentlyLoggedInUser.Movies.Length < 0)
+            if(currentlyLoggedInUser.Movies.Length == 0)
             {
                 Console.WriteLine("No movies rented at the moment");
             }
             else
             {
-                for(int i=0; i< currentlyLoggedInUser.Movies.Length; i++)
+                for(int i=0; i < currentlyLoggedInUser.Movies.Length; i++)
                 {
-                    Console.WriteLine(currentlyLoggedInUser.Movies[i]);
+                    Console.WriteLine(currentlyLoggedInUser.Movies[i].Title);
                 }
             }
             
@@ -75,6 +75,8 @@ namespace MovieStore
         {
             Console.WriteLine("");
             Console.WriteLine("-----------Which movie would you like to rent?-----");
+
+             
             foreach (Movie movie in movies)
             {
                 if (movie.Rented != true)
@@ -268,14 +270,14 @@ namespace MovieStore
 
 
         #region Remove USERS
-        static void RemoveUsers(User[] users)
+        static void RemoveUsers(User[] users, Movie[] movies)
         {
             Console.Clear();
             Console.WriteLine("-------------------------------");
             foreach (User user in users)
             {
                 if (user.Removed != true)
-                    user.Details();
+                    user.Details(movies);
                 else continue;
             }
             Console.WriteLine("-------------------------------");
@@ -347,7 +349,9 @@ namespace MovieStore
             //Console.WriteLine(user01.showMovies());
             
             for(; ; )
+                
             {
+                Movie[] newRentedMovies = new Movie[] { };
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine("Welcome to our Movie Store App!");
                 Console.WriteLine("Would you like to LOG IN or REGISTER(only employees)?");
@@ -377,13 +381,38 @@ namespace MovieStore
                         User currentuser = LogAppUser(arrayOfUsers, logUserName, logPassword, arrayOfMovies);
 
                         User currentlyLoggedInUser = FindUser(arrayOfUsers, logUserName, logPassword);
+                        
+
                         if (currentlyLoggedInUser != null)
                         {
 
+                            Movie currentlyRented = RentMoviesForUser(arrayOfMovies);
+                             newRentedMovies = currentlyLoggedInUser.Movies;
+                            Array.Resize(ref newRentedMovies, newRentedMovies.Length + 1);
+                            newRentedMovies[newRentedMovies.Length - 1] = currentlyRented;
+                            
+                            string message = $"{currentlyLoggedInUser.FirstName} {currentlyLoggedInUser.LastName} has rented";
+                                
+                            //foreach(Movie item in newRentedMovies)
+                            //{
+                            //    message += $" {item.Title},";
+                                
+                            //}
 
-                            Movie currentRentedMovie = RentMoviesForUser(arrayOfMovies);
-                            //Array.Resize(ref currentuser.Movies, currentuser.Movies.Length + 1); 
-                            //currentuser.Movies[currentuser.Movies.Length - 1] = currentRentedMovie;
+                            for(int i=0; i<newRentedMovies.Length; i++)
+                            {
+                                
+                                if(i == newRentedMovies.Length - 1)
+                                {
+                                    message += $" {newRentedMovies[i].Title}.";
+                                }
+                                message += $" {newRentedMovies[i].Title},";
+                            };
+
+                            currentlyLoggedInUser.Movies = newRentedMovies;
+                            
+                            Console.WriteLine(message);
+
                         }
 
                         else
@@ -425,7 +454,7 @@ namespace MovieStore
                                 }
                                 else if (addOrDelete == "delete")
                                 {
-                                    RemoveUsers(arrayOfUsers);
+                                    RemoveUsers(arrayOfUsers, newRentedMovies );
 
 
                                 }

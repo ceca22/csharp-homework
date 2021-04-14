@@ -39,24 +39,24 @@ namespace MovieStoreLibrary.Models
             Removed = false;
         }
 
-        public string showMovies()
+        public string showMovies(Movie[] movies)
         {
-            string user = $"{FirstName} {LastName} has rented ";
-            for (int i = 0; i < Movies.Length; i++)
+            string user = null;
+            for (int i = 0; i < movies.Length; i++)
             {
-                if (Movies.Length > 1)
-                    user += $"{Movies[i].Title}, ";
-                else if (Movies.Length == 1)
-                    user += Movies[i].Title;
+                if (movies.Length > 1)
+                    user = $"{FirstName} {LastName} has rented { movies[i].Title}, ";
+                else if (movies.Length == 1)
+                    user = $"{FirstName} {LastName} has rented { movies[i].Title}. ";
                 else
                     user = "Hasn't rented yet";
             }
             return user;
         }
 
-        public void Details()
+        public void Details(Movie[] movies)
         {
-            Console.WriteLine($"{MemberId} : {FirstName} {LastName} | {showMovies()} ");
+            Console.WriteLine($"{MemberId} : {FirstName} {LastName} | {showMovies(movies)} ");
         }
 
     }
