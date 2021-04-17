@@ -95,6 +95,9 @@ namespace Vezbi
             {
                 Console.WriteLine("No such user");
             }
+
+            
+
             return curentUser;
         }
 
@@ -123,8 +126,7 @@ namespace Vezbi
 
             };
 
-            string messagesYes = null;
-
+            
             /*
            Creata a program that will represent User Login and Register functionality
            - The User should have two options : 
@@ -151,10 +153,18 @@ namespace Vezbi
                     {
                         Login(usersRegister);
 
-                        
+                        Console.WriteLine("Press h to return to HOME PAGE!");
+                        string goBack = Console.ReadLine();
 
-                    }
-                    else if (answer == "register")
+                        while (goBack != "h")
+                        {
+                        Console.WriteLine("Press h to return to HOME PAGE!");
+                        goBack = Console.ReadLine();
+                        }
+
+
+                }
+                else if (answer == "register")
                     {
                         User newUser = Register(usersRegister);
                         Array.Resize(ref usersRegister, usersRegister.Length + 1);
@@ -169,6 +179,14 @@ namespace Vezbi
                             Console.WriteLine($"Id:{item.Id}, username:{item.Username}");
                         }
 
+                        Console.WriteLine("Press h to return to HOME PAGE!");
+                        string goBack = Console.ReadLine();
+
+                        while (goBack != "h")
+                        {
+                        Console.WriteLine("Press h to return to HOME PAGE!");
+                        goBack = Console.ReadLine();
+                        }
                 }
                 else
                     {
