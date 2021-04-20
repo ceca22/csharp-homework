@@ -17,16 +17,17 @@ namespace VehicleLibrary.Models
 
         }
 
-        //public Vehicle(int id, string manufacturer, string model)
-        //{
-        //    Id = id;
-        //    Manufacturer = manufacturer;
-        //    Model = model;
-        //}
+        public Vehicle(int id, string manufacturer, string model)
+        {
+            Id = id;
+            Manufacturer = manufacturer;
+            Model = model;
+        }
+
 
         public void PrintInfo()
         {
-            Console.WriteLine($"{Id} : {Model} | {Manufacturer}");
+            Console.WriteLine($"{Id} : {Model} | Manufacturer: {Manufacturer}");
         }
     }
 }
