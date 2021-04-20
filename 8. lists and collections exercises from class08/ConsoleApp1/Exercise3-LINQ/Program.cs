@@ -83,6 +83,9 @@ namespace Exercise3_LINQ
             jerryPerson.FavoriteSongs.ForEach(x => Console.WriteLine(x.Title));
             Console.WriteLine($"After adding the songs: { jerryPerson.FavoriteSongs.Count}");
 
+            //person1.FavoriteSongs.ForEach(x => Console.WriteLine(x.Title));
+            //zoshto se menuva i originalnata lista na userot? mislev deka so ovie metodi originalnata lista
+            //ostanuva nepromeneta...
 
 
             //    ●Select the person Maria and add all the songs with length longer than 6 mins
