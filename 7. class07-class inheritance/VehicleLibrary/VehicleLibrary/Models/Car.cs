@@ -16,30 +16,46 @@ namespace VehicleLibrary.Models
 
         public int MaxSpeed { get; set; }
 
-        //public Car ()
-        //{
 
-        //}
-
-        public Car() : base("car")
+        public Car()
         {
 
+        }
+
+
+        public Car(int id, string model,  string manufacturer, int numberofwheels, double fuelconsumption, int doors, int speed, EngineTypes enginetype) : base("Car", 4)
+        {
+            Id = id;
+            Model = model;
+            
+            Manufacturer = manufacturer;
+            NumberOfWheels = numberofwheels;
+
+            FuelConsumption = fuelconsumption;
+            NumberOfDoors = doors;
+            MaxSpeed = speed;
+            EngineType = enginetype;
         }
 
         public Car(EngineTypes enginetype)
         {
             EngineType = enginetype;
         }
+        
 
         public void Drive()
         {
-            Console.WriteLine($"The {Type}:{Model} with {EngineType} is driving.");
+            Console.WriteLine($"The {Model} with  {EngineType} egine type is driving.");
+
         }
 
         public virtual void Drive(int maxspeed)
         {
-            Console.WriteLine($"The {Type}:{Model} with {EngineType} is driving max speed of {maxspeed} km/h.");
+            
+            Console.WriteLine($"The {Type} : {Model} with {EngineType} egine type is driving max speed of {maxspeed} km/h.");
+            FuelConsumption -= 2; 
         }
+        
 
         public override void Repair(string brokenPartOfTheVehicle)
         {

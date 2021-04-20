@@ -9,7 +9,7 @@ namespace VehicleLibrary.Models
 
         public int NumberOfWheels { get; set; }
         public string Type { get; set; }
-
+           
         public WheeledVehicle() 
         {
 
@@ -17,10 +17,10 @@ namespace VehicleLibrary.Models
 
         
 
-
-        public WheeledVehicle(string type)
+        public WheeledVehicle(string type, int numberofwheels)
         {
             Type = type;
+            NumberOfWheels = numberofwheels;
         }
 
         public void  Repair()

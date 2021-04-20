@@ -9,9 +9,19 @@ namespace VehicleLibrary.Models
         public int NumberOfSpeedLevels { get; set; }
         public bool IsElectric { get; set; }
 
-        public Bicycle() : base("bicycle")
+        public Bicycle()
         {
 
+        }
+
+        public Bicycle(int id, string manufacturer, string model, int numberofwheels, int numberoflevels, bool iselectric) : base("bicycle", 2)
+        {
+            Id = id;
+            Manufacturer = manufacturer;
+            Model = model;
+            NumberOfWheels = numberofwheels;
+            NumberOfSpeedLevels = numberoflevels;
+            IsElectric = iselectric;
         }
 
         public void Ride()
