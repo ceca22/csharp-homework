@@ -15,7 +15,7 @@ namespace MovieStoreLibrary.Models
 
         public string Password { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
 
         public DateTime DateOfRegistration { get; set; }
 
@@ -29,7 +29,7 @@ namespace MovieStoreLibrary.Models
         }
 
         
-        public Member(string firstName, string lastName, int age, string userName, string pasword, int phoneNumber, DateTime dateOfRegistration, MovieStoreRole role)
+        public Member(string firstName, string lastName, int age, string userName, string pasword, long phoneNumber, DateTime dateOfRegistration, MovieStoreRole role)
         {
             FirstName = firstName;
             LastName = lastName;

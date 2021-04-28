@@ -41,7 +41,7 @@ namespace MovieStoreLibrary.Models
         }
         
         
-        public Employee(string firstName, string lastName, int age, string userName, string pasword, int phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int hoursPermonth)
+        public Employee(string firstName, string lastName, int age, string userName, string pasword, long phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int hoursPermonth)
         {
             FirstName = firstName;
             LastName = lastName;

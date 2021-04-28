@@ -113,7 +113,7 @@ namespace MovieStore
             }
 
             Console.Write("Enter you telephone number: ");
-            int phone = int.Parse(Console.ReadLine());
+            long phone = long.Parse(Console.ReadLine());
             Console.WriteLine("Date of registration: ");
             Console.Write("Year: ");
             int year = int.Parse(Console.ReadLine());
@@ -174,7 +174,7 @@ namespace MovieStore
                 pass = Console.ReadLine();
             }
             Console.Write("Enter telephone number: ");
-            int phone = int.Parse(Console.ReadLine());
+            long phone = long.Parse(Console.ReadLine());
             Console.WriteLine("Date of registration: ");
             Console.Write("Year: ");
             int year = int.Parse(Console.ReadLine());

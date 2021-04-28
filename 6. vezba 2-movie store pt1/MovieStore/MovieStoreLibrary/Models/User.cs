@@ -23,7 +23,7 @@ namespace MovieStoreLibrary.Models
 
         }
 
-        public User(string firstName, string lastName, int age, string userName, string pasword, int phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int memberId, TypeOfSubscription subscription, Movie[] movies)
+        public User(string firstName, string lastName, int age, string userName, string pasword, long phoneNumber, DateTime dateOfRegistration, MovieStoreRole role, int memberId, TypeOfSubscription subscription, Movie[] movies)
         {
             FirstName = firstName;
             LastName = lastName;
