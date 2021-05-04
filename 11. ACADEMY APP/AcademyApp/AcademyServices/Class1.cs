@@ -16,9 +16,9 @@ namespace AcademyServices
                                         .Where(x => x.Id == studentID)
                                         .Select(x => x.AllGrades)
                                         .FirstOrDefault();
-        if (checkFileStudent != null)
-            return checkFileStudent;
-        else return null;
+            if (checkFileStudent != null)
+                return checkFileStudent;
+            else return null;
         }
 
         public static List<Subject> CheckAttendance(List<Subject> subjects, List<Student> students) 
@@ -39,7 +39,7 @@ namespace AcademyServices
             return subjects;
         }
 
-            
+        
 
         
     }

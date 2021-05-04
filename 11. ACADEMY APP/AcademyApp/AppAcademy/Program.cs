@@ -4,11 +4,19 @@ using AcademyServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AcademyLibrary.Entities.Helpers;
 
 namespace AppAcademy
 {
     class Program
     {
+
+        public static FirstHelper<Trainer> trainerHelper = new FirstHelper<Trainer>();
+        public static FirstHelper<Student> studentHelper = new FirstHelper<Student>();
+        public static FirstHelper<Admin> adminHelper = new FirstHelper<Admin>();
+
+
+
 
         #region check user
         static User CheckUser(List<Trainer> trainers, List<Student> students, List<Admin> admins, string user1, string pass1)
@@ -41,6 +49,9 @@ namespace AppAcademy
         }
 
         #endregion
+
+
+
         static void Main(string[] args)
         {
             #region trainers
@@ -221,51 +232,47 @@ namespace AppAcademy
                                 Console.Write("How old are you? ");
                                 int age = int.Parse(Console.ReadLine());
                                 string userName2 = null;
+                                string userName3 = null;
+                                string userName4 = null;
+
 
                                 #region check username
                                 for (; ; )
                                 {
                                     Console.Write("Create Username: ");
                                     string userName1 = Console.ReadLine();
-                                    //foreach loops za proverka na site nizi za da ne se kreirat 2 isti usernames
-                                    foreach (Trainer trainer in trainers)
+                                    if(userName1.Length < 4)
                                     {
-                                        if (trainer.Username != userName1)
-                                        {
-                                            userName2 = userName1;
-                                            break;
-                                        }
+                                        Console.WriteLine("Too short, try again!");
+                                        continue;
                                     }
 
-                                    foreach (Student student in students)
-                                    {
-                                        if (student.Username != userName1)
-                                        {
-                                            userName2 = userName1;
-                                            break;
-                                        }
-                                    }
+                                    //generici za proverka na site nizi za da ne se kreirat 2 isti usernames
 
-                                    foreach (Admin admin in admins)
-                                    {
-                                        if (admin.Username != userName1)
-                                        {
-                                            userName2 = userName1;
-                                            break;
-                                        }
-                                    }
+                                    userName2 = trainerHelper.GoThroughAList(trainers, userName1);
+                                    userName3 = studentHelper.GoThroughAList(students, userName1);
+                                    userName4 = adminHelper.GoThroughAList(admins, userName1);
 
-                                    if (userName2 == null) continue;
+                                    if (userName2 == "Try Again" || userName3 == "Try Again" || userName4 == "Try Again") continue;
                                     else break;
+
                                 }
 
-
-
-
                                 #endregion
-
                                 Console.Write("Create Password: ");
-                                string pass = Console.ReadLine();
+                                string pass;
+                                for (; ; )
+                                {
+                                    pass = Console.ReadLine();
+
+                                    if (pass.Length < 6)
+                                    {
+                                        Console.WriteLine("Too short, try again!");
+                                        continue;
+                                    }
+                                    break;
+                                }
+                               
 
                                 Console.WriteLine("----------------------");
 
