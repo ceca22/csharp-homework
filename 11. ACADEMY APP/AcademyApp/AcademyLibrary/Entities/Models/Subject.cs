@@ -10,6 +10,7 @@ namespace AcademyLibrary.Entities.Models
         public Subjects NameOfSubject { get; set; }
         public Trainer CurrentTrainer { get; set; }
 
+        public int Attendance { get; set; } 
         public Subject()
         {
 
@@ -18,6 +19,7 @@ namespace AcademyLibrary.Entities.Models
         {
             NameOfSubject = nameOfSubjects;
             CurrentTrainer = currentTrainer;
+            Attendance = 0;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using AcademyLibrary.Entities.Enums;
 using AcademyLibrary.Entities.Models;
+using AcademyServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -152,9 +153,10 @@ namespace AppAcademy
 
                     while (true)
                     {
-                        #region admin login
+
                         if (currentUser.Role == AcademyRoles.Admin)
                         {
+                            #region admin login
                             Console.WriteLine("----------------------");
                             Console.WriteLine("What is your next step?");
                             Console.WriteLine("1)Add");
@@ -279,6 +281,7 @@ namespace AppAcademy
                                     case 1:
                                         Console.Clear();
                                         Admin newAdmin = new Admin(memberId, fullName, age, userName2, pass);
+                                        admins.Add(newAdmin);
                                         Console.WriteLine($"You have successfully registered a new ADMIN {newAdmin.FullName}!");
 
 
@@ -334,7 +337,7 @@ namespace AppAcademy
                                         Trainer newTrainer = new Trainer(memberId, fullName, age, userName2, pass, subjectToTeach);
                                         Console.Clear();
                                         Console.WriteLine($"You have successfully registered a new trainer {newTrainer.FullName} who teaches {newTrainer.Subject}.");
-
+                                        trainers.Add(newTrainer);
                                         #endregion
                                         break;
 
@@ -718,16 +721,18 @@ namespace AppAcademy
                                         #endregion
 
                                         Student newStudent = new Student(memberId, fullName, age, userName2, pass, currentlyListening, gradesForSubjects);
+                                        students.Add(newStudent);
                                         Console.Clear();
                                         Console.WriteLine($"You have succesfully added a new student {newStudent.FullName}  that currently listents to {newStudent.CurrentlyListening}");
                                         Console.WriteLine("Current Grades");
+
 
                                         foreach (var item in gradesForSubjects)
                                         {
                                             Console.WriteLine($"Subject: {item.Key}| Grade: {item.Value} ");
 
                                         }
-                                        
+
 
                                         break;
 
@@ -751,7 +756,7 @@ namespace AppAcademy
                                         #region remove admins
                                         Console.Clear();
                                         admins.ForEach(x => Console.WriteLine($"{x.Id} | {x.FullName}"));
-                                        for(; ; )
+                                        for (; ; )
                                         {
                                             Console.WriteLine("Who would you like to remove? Enter member ID! Enter 0 to exit!");
                                             int removeById = int.Parse(Console.ReadLine());
@@ -764,7 +769,7 @@ namespace AppAcademy
                                             else
                                             {
                                                 Console.Clear();
-                                                
+
                                                 var removeAdmins = admins.Where(x => x.Id == removeById).FirstOrDefault();
                                                 admins.Remove(removeAdmins);
                                                 admins.ForEach(x => Console.WriteLine($"{x.Id} | {x.FullName}"));
@@ -831,36 +836,156 @@ namespace AppAcademy
                             }
 
                             else if (nextMove == 3) break;
+                            else
+                            {
+                                Console.WriteLine("No such option");
+                                continue;
+                            }
+
+                            #endregion
+                        }
+                        else if (currentUser.Role == AcademyRoles.Trainer)
+                        {
+
+
+                            #region trainer login
+
+                            Console.WriteLine("----------------------");
+                            Console.WriteLine("What is your next step?");
+                            Console.WriteLine("1)See Students");
+                            Console.WriteLine("2)See Subjects");
+                            Console.WriteLine("3)Log Out");
+                            Console.WriteLine("----------------------");
+                            int nextMove = int.Parse(Console.ReadLine());
+
+
+                            if (nextMove == 1)
+                            {
+                                #region see students
+                                Console.Clear();
+
+                                students.ForEach(x => Console.WriteLine($"{x.Id}) {x.FullName}"));
+                                Console.WriteLine("----------------------");
+                                Console.WriteLine("What is your next step?");
+                                Console.WriteLine("1)Choose to check a student's file");
+                                Console.WriteLine("2)Back to the Main Page");
+                                Console.WriteLine("3)Log Out");
+                                Console.WriteLine("----------------------");
+                                int moveTwo = int.Parse(Console.ReadLine());
+                                if (moveTwo == 1)
+                                {
+
+
+                                    while (true)
+                                    {
+                                        Console.WriteLine("Enter the ID of the Student whose file you would like to open!");
+                                        int studentID = int.Parse(Console.ReadLine());
+                                        Dictionary<Subjects, Grades> studentsGrades = Class1.ChecksStudent(students, studentID);
+                                        if (studentsGrades != null)
+                                        {
+                                            Console.Clear();
+
+                                            foreach (var item in studentsGrades)
+                                            {
+                                                Console.WriteLine($"Subject: {item.Key}  Grade: {item.Value}");
+                                            }
+
+
+                                            break;
+
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Student with such ID number doesn't exist! Try Again!");
+                                            continue;
+                                        }
+                                    }
+
+
+
+
+
+                                    Console.ReadLine();
+
+
+                                }
+                                else if (moveTwo == 2)
+                                {
+                                    continue;
+                                }
+                                else if (moveTwo == 3)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Try again!");
+                                    continue;
+                                }
+
+                                #endregion
+                            }
+                            else if (nextMove == 2)
+                            {
+                                #region see subjects
+                                Console.Clear();
+                                List<Subject> listOfSubjectAttendance = Class1.CheckAttendance(subjectsInTheAcademy, students);
+
+                                foreach (Subject subject in listOfSubjectAttendance)
+                                {
+                                    if (subject.Attendance == 1)
+                                    {
+                                        Console.WriteLine($"{subject.NameOfSubject} is attented by {subject.Attendance} student");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"{subject.NameOfSubject} is attented by {subject.Attendance} students");
+                                    }
+
+                                }
+                                Console.ReadLine();
+
+                                #endregion
+
+                            }
+                            else if (nextMove == 3)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("No such option!");
+                                continue;
+
+                            }
+
+                            #endregion
+                        }
+                        else if (currentUser.Role == AcademyRoles.Student)
+                        {
+                            #region student menu
+                            Student currentlyLoggedIn = students.Where(x => x.Id == currentUser.Id).FirstOrDefault();
+                            Console.WriteLine($"{currentlyLoggedIn.FullName} currently listens to {currentlyLoggedIn.CurrentlyListening}.");
+
+                            Dictionary<Subjects, Grades> listOfGrades = Class1.ChecksStudent(students, currentUser.Id);
+                            foreach (var item in listOfGrades)
+                            {
+                                Console.WriteLine($"Subject: {item.Key}  Grade: {item.Value}");
+                            }
+
+                            Console.WriteLine("Enter 0 to log out!");
+                            int logOutOfStudentAccount = int.Parse(Console.ReadLine());
+                            if (logOutOfStudentAccount == 0)
+                                break;
+
+                            #endregion
                         }
 
 
 
-
-
-
-
-
-
-                        #endregion
+                        
                     }
-
-                    while (true)
-                    {
-                        #region trainer login
-
-                        #endregion
-                        break;
-                    }
-
-
-                    while (true)
-                    {
-                        #region student login
-
-                        #endregion
-                        break;
-                    }
-
 
 
 
